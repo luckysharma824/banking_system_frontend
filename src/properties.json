@@ -1,0 +1,5 @@
+{
+    "userLoginUrl": "http://localhost:8080/api/banking/auth/login",
+    "balanceCheckUrl": "http://localhost:8080/api/banking/accounts/balance",
+    "createAccountUrl": "http://localhost:8080/api/banking/accounts/create?customerId="
+}
