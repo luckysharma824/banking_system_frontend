@@ -1,3 +1,38 @@
+# 💻 React Banking System Frontend
+
+A modern and responsive **banking system frontend** built with **React.js**, designed to work seamlessly with a Spring Boot backend. This app supports authentication, account operations, and transaction features for various user roles.
+
+## 🌟 Features
+
+- JWT-based authentication
+- Role-based UI rendering (ADMIN, CLERK, MANAGER, CASHIER)
+- Customer creation & search
+- Account creation & balance view
+- Deposit & withdrawal forms
+- Axios integration with auth tokens
+- Protected routes using React Router
+- Form validation and error handling
+- Responsive UI with Bootstrap / Tailwind / MUI (based on your setup)
+
+## 📦 Tech Stack
+
+- React.js
+- React Router DOM
+- Axios
+- JWT Authentication
+- Bootstrap / MUI (customize as per your project)
+- Context API or Redux (for auth state)
+- Vite / CRA (based on your build setup)
+
+## 🚀 Getting Started
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/luckysharma824/react-banking-system.git
+cd react-banking-system
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
