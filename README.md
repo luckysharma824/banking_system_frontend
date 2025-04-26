@@ -32,6 +32,7 @@ A modern and responsive **banking system frontend** built with **React.js**, des
 git clone https://github.com/luckysharma824/react-banking-system.git
 cd react-banking-system
 
+## 🚀 Getting Started
 
 # Getting Started with Create React App
 
