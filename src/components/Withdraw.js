@@ -24,7 +24,10 @@ function Withdraw() {
       );
       alert(`Withdrawn: ${response.data.data.amount}`);
     } catch (error) {
-      alert("Error withdrawing money.");
+      const message = error.response.data.message
+        ? error.response.data.message
+        : "Error withdrawing money.";
+      alert(message);
     }
   };
 
