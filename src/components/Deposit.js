@@ -24,7 +24,11 @@ function Deposit() {
       );
       alert(`Deposited: ${response.data.data.amount}`);
     } catch (error) {
-      alert("Error depositing money.");
+      console.log();
+      const message = error.response.data.message
+        ? error.response.data.message
+        : "Error depositing money.";
+      alert(message);
     }
   };
 

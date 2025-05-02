@@ -27,7 +27,10 @@ function Transfer() {
       );
       alert(`Money transfered, txn Id: ${response.data.data}`);
     } catch (error) {
-      alert("Error transfering money.");
+      const message = error.response.data.message
+        ? error.response.data.message
+        : "Error transfering money.";
+      alert(message);
     }
   };
 

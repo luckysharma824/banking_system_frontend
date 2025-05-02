@@ -93,7 +93,7 @@ function CreateUser() {
 
   return (
     <div>
-      <h2>Create Account</h2>
+      <h2>Create User</h2>
       <Form className="container mt-5">
         <Form.Group className="mb-3" controlId="username">
           <Form.Control
