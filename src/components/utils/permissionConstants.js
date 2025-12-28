@@ -3,6 +3,8 @@
  * Only contains static references - actual permissions come from backend
  */
 
+import React from "react";
+
 // Role Constants
 export const ROLES = {
   ADMIN: "ADMIN",
@@ -24,14 +26,38 @@ export const MODULES = {
   STANDING_INSTRUCTION: "STANDING_INSTRUCTION",
 };
 
-// Role Icons for UI Display
+// Role Icons for UI Display (now returns JSX elements)
 export const ROLE_ICONS = {
-  [ROLES.ADMIN]: "👑",
-  [ROLES.MANAGER]: "📊",
-  [ROLES.USER]: "👤",
-  [ROLES.CUSTOMER]: "💼",
-  [ROLES.ACCOUNTANT]: "💰",
-  [ROLES.CLERK]: "📝",
+  [ROLES.ADMIN]: (
+    <span role="img" aria-label="crown">
+      👑
+    </span>
+  ),
+  [ROLES.MANAGER]: (
+    <span role="img" aria-label="bar chart">
+      📊
+    </span>
+  ),
+  [ROLES.USER]: (
+    <span role="img" aria-label="user">
+      👤
+    </span>
+  ),
+  [ROLES.CUSTOMER]: (
+    <span role="img" aria-label="briefcase">
+      💼
+    </span>
+  ),
+  [ROLES.ACCOUNTANT]: (
+    <span role="img" aria-label="money bag">
+      💰
+    </span>
+  ),
+  [ROLES.CLERK]: (
+    <span role="img" aria-label="memo">
+      📝
+    </span>
+  ),
 };
 
 // Role Colors for UI Display
@@ -57,10 +83,16 @@ export const ROLE_DESCRIPTIONS = {
 /**
  * Helper function to get role icon
  * @param {string} role - Role name
- * @returns {string} Icon emoji
+ * @returns {JSX.Element} Icon emoji wrapped in accessible span
  */
 export const getRoleIcon = (role) => {
-  return ROLE_ICONS[role] || "🔑";
+  return (
+    ROLE_ICONS[role] || (
+      <span role="img" aria-label="key">
+        🔑
+      </span>
+    )
+  );
 };
 
 /**

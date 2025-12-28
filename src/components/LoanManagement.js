@@ -227,7 +227,12 @@ function LoanManagement() {
   const renderLoanApplication = () => (
     <div className="card">
       <div className="card-header">
-        <h2 className="card-title">📝 Apply for Loan</h2>
+        <h2 className="card-title">
+          <span role="img" aria-label="memo">
+            📝
+          </span>{" "}
+          Apply for Loan
+        </h2>
       </div>
       {renderMessage()}
       <form onSubmit={handleApplyLoan}>
@@ -357,7 +362,12 @@ function LoanManagement() {
   const renderLoanList = () => (
     <div className="card">
       <div className="card-header">
-        <h2 className="card-title">💰 My Loans</h2>
+        <h2 className="card-title">
+          <span role="img" aria-label="money bag">
+            💰
+          </span>{" "}
+          My Loans
+        </h2>
       </div>
       {renderMessage()}
 
@@ -465,7 +475,11 @@ function LoanManagement() {
         !loading &&
         customerId && (
           <div className="empty-state">
-            <div className="empty-state-icon">📋</div>
+            <div className="empty-state-icon">
+              <span role="img" aria-label="clipboard">
+                📋
+              </span>
+            </div>
             <p className="empty-state-text">No loans found</p>
           </div>
         )
@@ -476,7 +490,12 @@ function LoanManagement() {
   const renderLoanDetails = () => (
     <div className="card">
       <div className="card-header">
-        <h2 className="card-title">📊 Loan Details</h2>
+        <h2 className="card-title">
+          <span role="img" aria-label="bar chart">
+            📊
+          </span>{" "}
+          Loan Details
+        </h2>
         <button
           className="btn btn-secondary"
           onClick={() => setActiveTab("list")}

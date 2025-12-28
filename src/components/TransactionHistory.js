@@ -204,7 +204,12 @@ function TransactionHistory() {
     <div className="container">
       <div className="card">
         <div className="card-header">
-          <h2 className="card-title">📊 Transaction History</h2>
+          <h2 className="card-title">
+            <span role="img" aria-label="bar chart">
+              📊
+            </span>{" "}
+            Transaction History
+          </h2>
         </div>
 
         {renderMessage()}
@@ -403,7 +408,11 @@ function TransactionHistory() {
           !loading &&
           accountNumber && (
             <div className="empty-state">
-              <div className="empty-state-icon">📋</div>
+              <div className="empty-state-icon">
+                <span role="img" aria-label="clipboard">
+                  📋
+                </span>
+              </div>
               <p className="empty-state-text">No transactions found</p>
             </div>
           )

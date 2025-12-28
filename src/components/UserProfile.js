@@ -50,14 +50,44 @@ const UserProfile = () => {
 
   const getRoleIcon = (role) => {
     const icons = {
-      ADMIN: "👑",
-      MANAGER: "📊",
-      USER: "👤",
-      CUSTOMER: "💼",
-      ACCOUNTANT: "💰",
-      CLERK: "📝",
+      ADMIN: (
+        <span role="img" aria-label="crown">
+          👑
+        </span>
+      ),
+      MANAGER: (
+        <span role="img" aria-label="bar chart">
+          📊
+        </span>
+      ),
+      USER: (
+        <span role="img" aria-label="user">
+          👤
+        </span>
+      ),
+      CUSTOMER: (
+        <span role="img" aria-label="briefcase">
+          💼
+        </span>
+      ),
+      ACCOUNTANT: (
+        <span role="img" aria-label="money bag">
+          💰
+        </span>
+      ),
+      CLERK: (
+        <span role="img" aria-label="memo">
+          📝
+        </span>
+      ),
     };
-    return icons[role] || "🔑";
+    return (
+      icons[role] || (
+        <span role="img" aria-label="key">
+          🔑
+        </span>
+      )
+    );
   };
 
   const formatLoginTime = (loginTime) => {
@@ -85,7 +115,12 @@ const UserProfile = () => {
     <div className="container">
       <div className="card" style={{ maxWidth: "800px", margin: "20px auto" }}>
         <div className="card-header">
-          <h2 className="card-title">👤 User Profile</h2>
+          <h2 className="card-title">
+            <span role="img" aria-label="user">
+              👤
+            </span>{" "}
+            User Profile
+          </h2>
         </div>
 
         <div style={{ padding: "30px" }}>
@@ -178,7 +213,10 @@ const UserProfile = () => {
           {/* Roles Section */}
           <div style={{ marginBottom: "30px" }}>
             <h4 style={{ marginBottom: "15px", color: "#495057" }}>
-              🎭 Assigned Roles
+              <span role="img" aria-label="theater masks">
+                🎭
+              </span>{" "}
+              Assigned Roles
             </h4>
             <div
               style={{
@@ -222,7 +260,10 @@ const UserProfile = () => {
               className="alert alert-warning"
               style={{ marginBottom: "20px" }}
             >
-              ⚠️ Your session will expire soon. Please save your work.
+              <span role="img" aria-label="warning">
+                ⚠️
+              </span>{" "}
+              Your session will expire soon. Please save your work.
             </div>
           )}
 
@@ -233,7 +274,10 @@ const UserProfile = () => {
               onClick={handleLogout}
               style={{ minWidth: "150px" }}
             >
-              🚪 Logout
+              <span role="img" aria-label="door">
+                🚪
+              </span>{" "}
+              Logout
             </button>
           </div>
         </div>

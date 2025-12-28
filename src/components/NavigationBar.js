@@ -28,7 +28,10 @@ function NavigationBar() {
           to="/"
           style={{ fontWeight: "bold", fontSize: "20px" }}
         >
-          🏦 Banking System
+          <span role="img" aria-label="bank">
+            🏦
+          </span>{" "}
+          Banking System
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -119,13 +122,22 @@ function NavigationBar() {
                 )}
                 <NavDropdown title="Services" id="services-nav-dropdown">
                   <NavDropdown.Item as={Link} to="/beneficiaries">
-                    👥 Beneficiaries
+                    <span role="img" aria-label="people">
+                      👥
+                    </span>{" "}
+                    Beneficiaries
                   </NavDropdown.Item>
                   <NavDropdown.Item as={Link} to="/loans">
-                    💰 Loans
+                    <span role="img" aria-label="money bag">
+                      💰
+                    </span>{" "}
+                    Loans
                   </NavDropdown.Item>
                   <NavDropdown.Item as={Link} to="/standing-instructions">
-                    🔄 Standing Instructions
+                    <span role="img" aria-label="refresh">
+                      🔄
+                    </span>{" "}
+                    Standing Instructions
                   </NavDropdown.Item>
                 </NavDropdown>
               </>
@@ -213,7 +225,10 @@ function NavigationBar() {
                   )}
                 </div>
                 <NavDropdown.Item as={Link} to="/profile">
-                  👤 My Profile
+                  <span role="img" aria-label="user">
+                    👤
+                  </span>{" "}
+                  My Profile
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item

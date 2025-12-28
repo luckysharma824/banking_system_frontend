@@ -173,7 +173,12 @@ function StandingInstructionManagement() {
   const renderCreateForm = () => (
     <div className="card">
       <div className="card-header">
-        <h2 className="card-title">🔄 Create Standing Instruction</h2>
+        <h2 className="card-title">
+          <span role="img" aria-label="refresh">
+            🔄
+          </span>{" "}
+          Create Standing Instruction
+        </h2>
       </div>
       {renderMessage()}
       <form onSubmit={handleCreateInstruction}>
@@ -296,7 +301,12 @@ function StandingInstructionManagement() {
   const renderInstructionList = () => (
     <div className="card">
       <div className="card-header">
-        <h2 className="card-title">🔄 My Standing Instructions</h2>
+        <h2 className="card-title">
+          <span role="img" aria-label="refresh">
+            🔄
+          </span>{" "}
+          My Standing Instructions
+        </h2>
       </div>
       {renderMessage()}
 
@@ -446,7 +456,11 @@ function StandingInstructionManagement() {
         !loading &&
         accountNumber && (
           <div className="empty-state">
-            <div className="empty-state-icon">📋</div>
+            <div className="empty-state-icon">
+              <span role="img" aria-label="clipboard">
+                📋
+              </span>
+            </div>
             <p className="empty-state-text">No standing instructions found</p>
           </div>
         )

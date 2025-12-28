@@ -347,7 +347,12 @@ function BeneficiaryManagement() {
   const renderList = () => (
     <div className="card">
       <div className="card-header">
-        <h2 className="card-title">👥 My Beneficiaries</h2>
+        <h2 className="card-title">
+          <span role="img" aria-label="people">
+            👥
+          </span>{" "}
+          My Beneficiaries
+        </h2>
       </div>
       {renderMessage()}
 
@@ -449,7 +454,11 @@ function BeneficiaryManagement() {
         !loading &&
         accountNumber && (
           <div className="empty-state">
-            <div className="empty-state-icon">📭</div>
+            <div className="empty-state-icon">
+              <span role="img" aria-label="open mailbox with lowered flag">
+                📭
+              </span>
+            </div>
             <p className="empty-state-text">No beneficiaries found</p>
           </div>
         )

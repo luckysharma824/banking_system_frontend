@@ -78,7 +78,12 @@ function AccountManagement() {
   const renderAccountsList = () => (
     <div className="card">
       <div className="card-header">
-        <h2 className="card-title">👤 Customer Accounts</h2>
+        <h2 className="card-title">
+          <span role="img" aria-label="user">
+            👤
+          </span>{" "}
+          Customer Accounts
+        </h2>
       </div>
 
       {renderMessage()}
@@ -172,7 +177,11 @@ function AccountManagement() {
         !loading &&
         customerId && (
           <div className="empty-state">
-            <div className="empty-state-icon">📭</div>
+            <div className="empty-state-icon">
+              <span role="img" aria-label="open mailbox with lowered flag">
+                📭
+              </span>
+            </div>
             <p className="empty-state-text">No accounts found</p>
           </div>
         )
@@ -183,7 +192,12 @@ function AccountManagement() {
   const renderStatusManagement = () => (
     <div className="card">
       <div className="card-header">
-        <h2 className="card-title">🔧 Account Status Management</h2>
+        <h2 className="card-title">
+          <span role="img" aria-label="wrench">
+            🔧
+          </span>{" "}
+          Account Status Management
+        </h2>
       </div>
 
       {renderMessage()}

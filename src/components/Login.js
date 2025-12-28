@@ -163,7 +163,12 @@ const Login = () => {
     <div className="container">
       <div className="card" style={{ maxWidth: "500px", margin: "50px auto" }}>
         <div className="card-header">
-          <h2 className="card-title">🔐 Login</h2>
+          <h2 className="card-title">
+            <span role="img" aria-label="locked with key">
+              🔐
+            </span>{" "}
+            Login
+          </h2>
         </div>
 
         {message.text && (
@@ -215,8 +220,17 @@ const Login = () => {
                   fontSize: "18px",
                 }}
                 disabled={loading}
+                aria-label={showPassword ? "Hide password" : "Show password"}
               >
-                {showPassword ? "👁️" : "👁️‍🗨️"}
+                {showPassword ? (
+                  <span role="img" aria-label="eye">
+                    👁️
+                  </span>
+                ) : (
+                  <span role="img" aria-label="eye in speech bubble">
+                    👁️‍🗨️
+                  </span>
+                )}
               </button>
             </div>
           </div>
