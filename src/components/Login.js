@@ -43,13 +43,9 @@ const Login = () => {
       let responseData = response.data;
 
       // Check if response has 'isSuccess' or 'success' field
-      if (
-        responseData.isSuccess === true ||
-        responseData.isSuccess === false ||
-        responseData.success === true ||
-        responseData.success === false
-      ) {
+      if (responseData.isSuccess === true) {
         // Structure: { isSuccess: true, data: {...} } or { success: true, data: {...} }
+        console.log("Detected structure with isSuccess field");
         const isSuccessful = responseData.isSuccess || responseData.success;
 
         if (isSuccessful && responseData.data) {
@@ -90,39 +86,6 @@ const Login = () => {
             type: "danger",
           });
         }
-      } else if (responseData.token) {
-        // Direct response structure: { token, permissions, userInfo, ... }
-        const { token, permissions, userInfo, expiresIn, loginTime } =
-          responseData;
-
-        // Save authentication data
-        saveToken(token);
-        savePermissions(permissions);
-        saveUserInfo({
-          ...userInfo,
-          expiresIn,
-          loginTime,
-          tokenExpiry: new Date(Date.now() + expiresIn).toISOString(),
-        });
-
-        // Update context
-        setAuthenticated(true);
-        setPermissions(permissions);
-        setUserInfo(userInfo);
-
-        setMessage({
-          text: `Welcome back, ${userInfo?.username || "User"}!`,
-          type: "success",
-        });
-
-        // Clear form
-        setUsername("");
-        setPassword("");
-
-        // Navigate to home after short delay
-        setTimeout(() => {
-          navigate("/");
-        }, 500);
       } else {
         setMessage({
           text: "Invalid response format from server",

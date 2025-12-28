@@ -1,14 +1,10 @@
 import axios from "axios";
-import { getApiUrl } from "../config/apiConfig";
+import config from "../config/apiConfig";
 
 /**
  * Service for fetching dashboard statistics and data
  */
 class DashboardService {
-  constructor() {
-    this.baseUrl = getApiUrl();
-  }
-
   /**
    * Get authentication headers
    */
@@ -25,7 +21,7 @@ class DashboardService {
    */
   async getDashboardStats() {
     try {
-      const response = await axios.get(`${this.baseUrl}/dashboard/stats`, {
+      const response = await axios.get(`${config.baseUrl}/dashboard/stats`, {
         headers: this.getHeaders(),
       });
       return response.data;
@@ -42,7 +38,7 @@ class DashboardService {
   async getRecentActivities(limit = 5) {
     try {
       const response = await axios.get(
-        `${this.baseUrl}/dashboard/activities?limit=${limit}`,
+        `${config.baseUrl}/dashboard/activities?limit=${limit}`,
         {
           headers: this.getHeaders(),
         }
@@ -60,7 +56,7 @@ class DashboardService {
   async getQuickActions() {
     try {
       const response = await axios.get(
-        `${this.baseUrl}/dashboard/quick-actions`,
+        `${config.baseUrl}/dashboard/quick-actions`,
         {
           headers: this.getHeaders(),
         }
