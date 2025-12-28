@@ -3,24 +3,33 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import { Link } from "react-router-dom";
-import { removeToken } from "./utils/DataStorage";
+import { Link, useNavigate } from "react-router-dom";
 import { MyContext } from "./utils/ContextProvider";
+import { usePermissions } from "./utils/usePermissions";
+import { MODULES, getRoleIcon } from "./utils/permissionConstants";
 
 function NavigationBar() {
-  const { isAuthenticated, permissions, setAuthenticated, setPermissions } =
-    useContext(MyContext);
+  const { isAuthenticated, userInfo, logout } = useContext(MyContext);
+  const { hasPermission, hasModuleAccess } = usePermissions();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
-    removeToken();
-    setAuthenticated(false);
-    setPermissions({});
+    if (window.confirm("Are you sure you want to logout?")) {
+      logout();
+      navigate("/");
+    }
   };
 
   return (
-    <Navbar bg="dark" data-bs-theme="dark">
+    <Navbar bg="dark" data-bs-theme="dark" expand="lg">
       <Container>
-        <Navbar.Brand href="/">Banking System</Navbar.Brand>
+        <Navbar.Brand
+          as={Link}
+          to="/"
+          style={{ fontWeight: "bold", fontSize: "20px" }}
+        >
+          🏦 Banking System
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
@@ -29,74 +38,193 @@ function NavigationBar() {
             </Nav.Link>
             {isAuthenticated ? (
               <>
-                {permissions.hasOwnProperty("USER") && (
-                  <NavDropdown title="User" id="basic-nav-dropdown">
-                    {permissions.USER.includes("CREATE_USER") && (
+                {hasModuleAccess(MODULES.USER) && (
+                  <NavDropdown title="User" id="user-nav-dropdown">
+                    {hasPermission(MODULES.USER, "CREATE_USER") && (
                       <NavDropdown.Item as={Link} to="/create-user">
                         Create User
                       </NavDropdown.Item>
                     )}
-                    {permissions.USER.includes("VIEW_CUSTOMER") && (
+                    {hasPermission(MODULES.USER, "VIEW_USER") && (
                       <NavDropdown.Item as={Link} to="/">
                         Search User
                       </NavDropdown.Item>
                     )}
                   </NavDropdown>
                 )}
-                {permissions.hasOwnProperty("CUSTOMER") && (
-                  <NavDropdown title="Customer" id="basic-nav-dropdown">
-                    {permissions.CUSTOMER.includes("CREATE_CUSTOMER") && (
+                {hasModuleAccess(MODULES.CUSTOMER) && (
+                  <NavDropdown title="Customer" id="customer-nav-dropdown">
+                    {hasPermission(MODULES.CUSTOMER, "CREATE_CUSTOMER") && (
                       <NavDropdown.Item as={Link} to="/create-customer">
                         Create Customer
                       </NavDropdown.Item>
                     )}
-                    {permissions.CUSTOMER.includes("VIEW_CUSTOMER") && (
+                    {hasPermission(MODULES.CUSTOMER, "VIEW_CUSTOMER") && (
                       <NavDropdown.Item as={Link} to="/customer/search">
                         Search Customer
                       </NavDropdown.Item>
                     )}
                   </NavDropdown>
                 )}
-                {permissions.hasOwnProperty("ACCOUNT") && (
-                  <NavDropdown title="Account" id="basic-nav-dropdown">
-                    {permissions.ACCOUNT.includes("CREATE_ACCOUNT") && (
+                {hasModuleAccess(MODULES.ACCOUNT) && (
+                  <NavDropdown title="Account" id="account-nav-dropdown">
+                    {hasPermission(MODULES.ACCOUNT, "CREATE_ACCOUNT") && (
                       <NavDropdown.Item as={Link} to="/create-account">
                         Create Account
                       </NavDropdown.Item>
                     )}
-                    {permissions.ACCOUNT.includes("VIEW_ACCOUNT") && (
+                    {hasPermission(MODULES.ACCOUNT, "VIEW_ACCOUNT") && (
                       <NavDropdown.Item as={Link} to="/account-search">
                         Search Account
                       </NavDropdown.Item>
                     )}
-                    {permissions.ACCOUNT.includes("VIEW_ACCOUNT") && (
+                    {hasPermission(MODULES.ACCOUNT, "VIEW_ACCOUNT") && (
                       <NavDropdown.Item as={Link} to="/check-balance">
                         Check Balance
                       </NavDropdown.Item>
                     )}
-                  </NavDropdown>
-                )}
-                {permissions.hasOwnProperty("TRANSACTION") && (
-                  <NavDropdown title="Transaction" id="basic-nav-dropdown">
-                    <NavDropdown.Item as={Link} to="/deposit">
-                      Deposit Money
-                    </NavDropdown.Item>
-                    <NavDropdown.Item as={Link} to="/withdraw">
-                      Withdraw Money
-                    </NavDropdown.Item>
-                    <NavDropdown.Item as={Link} to="/transfer">
-                      Transfer Money
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item as={Link} to="/account-management">
+                      Manage Accounts
                     </NavDropdown.Item>
                   </NavDropdown>
                 )}
-                <Nav.Link as={Link} to="/" onClick={handleLogout}>
-                  Logout
-                </Nav.Link>
+                {hasModuleAccess(MODULES.TRANSACTION) && (
+                  <NavDropdown
+                    title="Transaction"
+                    id="transaction-nav-dropdown"
+                  >
+                    {hasPermission(MODULES.TRANSACTION, "DEPOSIT") && (
+                      <NavDropdown.Item as={Link} to="/deposit">
+                        Deposit Money
+                      </NavDropdown.Item>
+                    )}
+                    {hasPermission(MODULES.TRANSACTION, "WITHDRAW") && (
+                      <NavDropdown.Item as={Link} to="/withdraw">
+                        Withdraw Money
+                      </NavDropdown.Item>
+                    )}
+                    {hasPermission(MODULES.TRANSACTION, "TRANSFER") && (
+                      <NavDropdown.Item as={Link} to="/transfer">
+                        Transfer Money
+                      </NavDropdown.Item>
+                    )}
+                    <NavDropdown.Divider />
+                    {hasPermission(MODULES.TRANSACTION, "VIEW_TRANSACTION") && (
+                      <NavDropdown.Item as={Link} to="/transaction-history">
+                        Transaction History
+                      </NavDropdown.Item>
+                    )}
+                  </NavDropdown>
+                )}
+                <NavDropdown title="Services" id="services-nav-dropdown">
+                  <NavDropdown.Item as={Link} to="/beneficiaries">
+                    👥 Beneficiaries
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/loans">
+                    💰 Loans
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to="/standing-instructions">
+                    🔄 Standing Instructions
+                  </NavDropdown.Item>
+                </NavDropdown>
               </>
-            ) : (
-              <div></div>
-            )}
+            ) : null}
           </Nav>
+
+          {/* Right-side User Menu */}
+          {isAuthenticated && userInfo && (
+            <Nav>
+              <NavDropdown
+                title={
+                  <span
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "8px",
+                    }}
+                  >
+                    <span
+                      style={{
+                        width: "32px",
+                        height: "32px",
+                        borderRadius: "50%",
+                        background:
+                          "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                        display: "inline-flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        color: "white",
+                        fontWeight: "bold",
+                        fontSize: "14px",
+                      }}
+                    >
+                      {userInfo.username?.charAt(0).toUpperCase() || "U"}
+                    </span>
+                    <span>{userInfo.username}</span>
+                    {userInfo.roles && userInfo.roles.length > 0 && (
+                      <span style={{ fontSize: "16px" }}>
+                        {getRoleIcon(userInfo.roles[0])}
+                      </span>
+                    )}
+                  </span>
+                }
+                id="user-nav-dropdown"
+                align="end"
+              >
+                <div
+                  style={{
+                    padding: "10px 20px",
+                    borderBottom: "1px solid #dee2e6",
+                    minWidth: "220px",
+                  }}
+                >
+                  <div style={{ fontWeight: "bold", marginBottom: "5px" }}>
+                    {userInfo.fullName || userInfo.username}
+                  </div>
+                  <div style={{ fontSize: "12px", color: "#6c757d" }}>
+                    ID: #{userInfo.userId}
+                  </div>
+                  {userInfo.roles && userInfo.roles.length > 0 && (
+                    <div
+                      style={{
+                        marginTop: "8px",
+                        display: "flex",
+                        gap: "5px",
+                        flexWrap: "wrap",
+                      }}
+                    >
+                      {userInfo.roles.map((role, index) => (
+                        <span
+                          key={index}
+                          style={{
+                            fontSize: "10px",
+                            padding: "2px 8px",
+                            borderRadius: "10px",
+                            background: "#e7f3ff",
+                            color: "#0d6efd",
+                            fontWeight: "500",
+                          }}
+                        >
+                          {role}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <NavDropdown.Item as={Link} to="/profile">
+                  👤 My Profile
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item
+                  onClick={handleLogout}
+                  style={{ color: "#dc3545" }}
+                >
+                  🚪 Logout
+                </NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>

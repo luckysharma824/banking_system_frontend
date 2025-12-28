@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { getToken } from "./utils/DataStorage";
-import properties from "../properties.json";
+import config from "../config/apiConfig";
 
 function CheckBalance() {
   const [accountNumber, setAccountNumber] = useState("");
@@ -10,7 +10,7 @@ function CheckBalance() {
   const handleCheckBalance = async () => {
     try {
       const response = await axios.get(
-        `${properties.balanceCheckUrl}/${accountNumber}`,
+        `${config.balanceCheckUrl}${accountNumber}`,
         {
           headers: {
             Authorization: "Bearer " + getToken(),

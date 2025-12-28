@@ -1,5 +1,48 @@
 {
+    "baseUrl": "http://localhost:8080/api/banking",
+    
+    "_comment_auth": "Authentication APIs",
     "userLoginUrl": "http://localhost:8080/api/banking/auth/login",
-    "balanceCheckUrl": "http://localhost:8080/api/banking/accounts/balance",
-    "createAccountUrl": "http://localhost:8080/api/banking/accounts/create?customerId="
+    
+    "_comment_account": "Account Management APIs",
+    "createAccountUrl": "http://localhost:8080/api/banking/accounts/create",
+    "balanceCheckUrl": "http://localhost:8080/api/banking/accounts/balance/",
+    "getAccountsByCustomerUrl": "http://localhost:8080/api/banking/accounts/",
+    "changeAccountStatusUrl": "http://localhost:8080/api/banking/accounts/status/",
+    
+    "_comment_beneficiary": "Beneficiary Management APIs",
+    "addBeneficiaryUrl": "http://localhost:8080/api/banking/beneficiaries/add",
+    "getBeneficiariesUrl": "http://localhost:8080/api/banking/beneficiaries/",
+    "getActiveBeneficiariesUrl": "http://localhost:8080/api/banking/beneficiaries/",
+    "updateBeneficiaryUrl": "http://localhost:8080/api/banking/beneficiaries/update/",
+    "deleteBeneficiaryUrl": "http://localhost:8080/api/banking/beneficiaries/delete/",
+    
+    "_comment_loan": "Loan Management APIs",
+    "applyLoanUrl": "http://localhost:8080/api/banking/loans/apply",
+    "approveLoanUrl": "http://localhost:8080/api/banking/loans/approve/",
+    "rejectLoanUrl": "http://localhost:8080/api/banking/loans/reject/",
+    "disburseLoanUrl": "http://localhost:8080/api/banking/loans/disburse/",
+    "makeLoanPaymentUrl": "http://localhost:8080/api/banking/loans/payment/",
+    "getLoansByCustomerUrl": "http://localhost:8080/api/banking/loans/customer/",
+    "getLoanDetailsUrl": "http://localhost:8080/api/banking/loans/",
+    "getLoanPaymentHistoryUrl": "http://localhost:8080/api/banking/loans/payments/",
+    
+    "_comment_standing_instruction": "Standing Instruction APIs",
+    "createStandingInstructionUrl": "http://localhost:8080/api/banking/standing-instructions/create",
+    "getStandingInstructionsUrl": "http://localhost:8080/api/banking/standing-instructions/",
+    "getActiveStandingInstructionsUrl": "http://localhost:8080/api/banking/standing-instructions/",
+    "pauseStandingInstructionUrl": "http://localhost:8080/api/banking/standing-instructions/pause/",
+    "resumeStandingInstructionUrl": "http://localhost:8080/api/banking/standing-instructions/resume/",
+    "cancelStandingInstructionUrl": "http://localhost:8080/api/banking/standing-instructions/cancel/",
+    
+    "_comment_transaction": "Transaction APIs",
+    "depositUrl": "http://localhost:8080/api/banking/transactions/deposit",
+    "withdrawUrl": "http://localhost:8080/api/banking/transactions/withdraw",
+    "transferUrl": "http://localhost:8080/api/banking/transactions/transfer",
+    "transactionHistoryUrl": "http://localhost:8080/api/banking/transactions/history/",
+    "transactionHistoryPaginatedUrl": "http://localhost:8080/api/banking/transactions/history/",
+    "transactionHistoryByDateUrl": "http://localhost:8080/api/banking/transactions/history/",
+    "transactionHistoryByTypeUrl": "http://localhost:8080/api/banking/transactions/history/",
+    "getTransactionByIdUrl": "http://localhost:8080/api/banking/transactions/txn/",
+    "getRecentTransactionsUrl": "http://localhost:8080/api/banking/transactions/recent/"
 }

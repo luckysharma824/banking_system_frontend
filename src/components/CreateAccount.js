@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Button, Form } from "react-bootstrap";
 import { getToken } from "./utils/DataStorage";
-import properties from "../properties.json";
+import config from "../config/apiConfig";
 
 function CreateAccount() {
   const [customerId, setcustomerId] = useState("");
@@ -25,7 +25,7 @@ function CreateAccount() {
     try {
       console.log("account Payload: ", accountPayload);
       const response = await axios.post(
-        properties.createAccountUrl + customerId,
+        config.createAccountUrl + customerId,
         accountPayload,
         {
           headers: {
