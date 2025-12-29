@@ -49,8 +49,8 @@ function NavigationBar() {
                       </NavDropdown.Item>
                     )}
                     {hasPermission(MODULES.USER, "VIEW_USER") && (
-                      <NavDropdown.Item as={Link} to="/">
-                        Search User
+                      <NavDropdown.Item as={Link} to="/user-management">
+                        User Management
                       </NavDropdown.Item>
                     )}
                   </NavDropdown>

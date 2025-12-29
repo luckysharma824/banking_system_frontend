@@ -60,6 +60,20 @@ const config = {
     process.env.REACT_APP_TRANSACTION_HISTORY_BY_TYPE_URL,
   getTransactionByIdUrl: process.env.REACT_APP_GET_TRANSACTION_BY_ID_URL,
   getRecentTransactionsUrl: process.env.REACT_APP_GET_RECENT_TRANSACTIONS_URL,
+
+  // User Management APIs
+  createUserUrl: process.env.REACT_APP_CREATE_USER_URL,
+  getAllUsersUrl: process.env.REACT_APP_GET_ALL_USERS_URL,
+  getUserByIdUrl: process.env.REACT_APP_GET_USER_BY_ID_URL,
+  updateUserUrl: process.env.REACT_APP_UPDATE_USER_URL,
+  deleteUserUrl: process.env.REACT_APP_DELETE_USER_URL,
+  getRolesUrl: process.env.REACT_APP_GET_ROLES_URL,
+  addRoleUrl: process.env.REACT_APP_ADD_ROLE_URL,
+  getPermissionsUrl: process.env.REACT_APP_GET_PERMISSIONS_URL,
+  changePasswordUrl: process.env.REACT_APP_CHANGE_PASSWORD_URL,
+  updateUserRolesUrl: process.env.REACT_APP_UPDATE_USER_ROLES_URL,
+  getUserStatsUrl: process.env.REACT_APP_GET_USER_STATS_URL,
+  searchUsersUrl: process.env.REACT_APP_SEARCH_USERS_URL,
 };
 
 export default config;

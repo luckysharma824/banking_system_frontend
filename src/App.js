@@ -12,6 +12,7 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import CustomerSearch from "./components/CustomerSearch";
 import { ContextProvider } from "./components/utils/ContextProvider";
 import CreateUser from "./components/CreateUser";
+import UserManagement from "./components/UserManagement";
 import AccountSearch from "./components/SearchAccount";
 // Import new components
 import BeneficiaryManagement from "./components/BeneficiaryManagement";
@@ -31,6 +32,7 @@ function App() {
             <Routes>
               <Route exact path="/" element={<Home />} />
               <Route path="/create-user" element={<CreateUser />} />
+              <Route path="/user-management" element={<UserManagement />} />
               <Route path="/create-customer" element={<CreateCustomer />} />
               <Route path="/customer/search" element={<CustomerSearch />} />
               <Route path="/create-account" element={<CreateAccount />} />

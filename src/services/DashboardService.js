@@ -1,5 +1,6 @@
 import axios from "axios";
 import config from "../config/apiConfig";
+import { getToken } from "../components/utils/DataStorage";
 
 /**
  * Service for fetching dashboard statistics and data
@@ -9,7 +10,7 @@ class DashboardService {
    * Get authentication headers
    */
   getHeaders() {
-    const token = localStorage.getItem("token");
+    const token = getToken();
     return {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
