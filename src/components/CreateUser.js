@@ -1,8 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { Form } from "react-bootstrap";
+import { Button, Form, Alert, Spinner } from "react-bootstrap";
 import UserService from "../services/UserService";
-import { Card, Button, Alert, LoadingSpinner } from "../shared/components";
 
 function CreateUser() {
   const [message, setMessage] = useState("");
@@ -94,93 +93,97 @@ function CreateUser() {
 
   return (
     <div className="container mt-4">
-      <Card variant="elevated">
-        <Card.Header>
-          <h2>Create User</h2>
-        </Card.Header>
-        <Card.Body>
-          {message && (
-            <Alert
-              variant={messageType === "danger" ? "error" : messageType}
-              dismissible
-              onClose={() => setMessage("")}
-            >
-              {message}
-            </Alert>
-          )}
+      <h2>Create User</h2>
 
-          <Form className="mt-4">
-            <Form.Group className="mb-3" controlId="username">
-              <Form.Label>Username</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter User Name"
-                name="username"
-                value={userData.username}
-                onChange={onUserChange}
-                required
-              />
-            </Form.Group>
+      {message && (
+        <Alert variant={messageType} dismissible onClose={() => setMessage("")}>
+          {message}
+        </Alert>
+      )}
 
-            <Form.Group className="mb-3" controlId="password">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type="password"
-                placeholder="Enter Password"
-                name="password"
-                value={userData.password}
-                onChange={onUserChange}
-                required
-                minLength={6}
-              />
-              <Form.Text className="text-muted">
-                Password must be at least 6 characters long.
-              </Form.Text>
-            </Form.Group>
+      <Form className="mt-4">
+        <Form.Group className="mb-3" controlId="username">
+          <Form.Label>Username</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter User Name"
+            name="username"
+            value={userData.username}
+            onChange={onUserChange}
+            required
+          />
+        </Form.Group>
 
-            <Form.Group className="mb-3" controlId="user-role">
-              <Form.Label>
-                Select User Roles (Hold Ctrl/Cmd to select multiple)
-              </Form.Label>
-              <Form.Select
-                multiple
-                name="roles"
-                onChange={onRoleChange}
-                value={userData.roles.map((r) => r.name)}
-                required
-                size={5}
-              >
-                {userRoles.map((role, index) => (
-                  <option key={index} value={role}>
-                    {role.replace("ROLE_", "")}
-                  </option>
-                ))}
-              </Form.Select>
-            </Form.Group>
+        <Form.Group className="mb-3" controlId="password">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Enter Password"
+            name="password"
+            value={userData.password}
+            onChange={onUserChange}
+            required
+            minLength={6}
+          />
+          <Form.Text className="text-muted">
+            Password must be at least 6 characters long.
+          </Form.Text>
+        </Form.Group>
 
-            <div className="d-flex gap-2">
-              <Button
-                variant="primary"
-                type="button"
-                onClick={handleUserChange}
-                loading={loading}
-                disabled={loading}
-              >
-                Create User
-              </Button>
+        <Form.Group className="mb-3" controlId="user-role">
+          <Form.Label>
+            Select User Roles (Hold Ctrl/Cmd to select multiple)
+          </Form.Label>
+          <Form.Select
+            multiple
+            name="roles"
+            onChange={onRoleChange}
+            value={userData.roles.map((r) => r.name)}
+            required
+            size={5}
+          >
+            {userRoles.map((role, index) => (
+              <option key={index} value={role}>
+                {role.replace("ROLE_", "")}
+              </option>
+            ))}
+          </Form.Select>
+        </Form.Group>
 
-              <Button
-                variant="secondary"
-                type="button"
-                onClick={() => setUserData(user)}
-                disabled={loading}
-              >
-                Reset
-              </Button>
-            </div>
-          </Form>
-        </Card.Body>
-      </Card>
+        <div className="d-flex gap-2">
+          <Button
+            variant="primary"
+            type="button"
+            onClick={handleUserChange}
+            disabled={loading}
+          >
+            {loading ? (
+              <>
+                <Spinner
+                  as="span"
+                  animation="border"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                  className="me-2"
+                />
+                Creating...
+              </>
+            ) : (
+              "Create User"
+            )}
+          </Button>
+
+          <Button
+            variant="secondary"
+            type="button"
+            onClick={() => setUserData(user)}
+            disabled={loading}
+          >
+            Reset
+          </Button>
+        </div>
+      </Form>
     </div>
   );
 }

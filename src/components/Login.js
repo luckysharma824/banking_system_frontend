@@ -1,11 +1,9 @@
 import axios from "axios";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Form } from "react-bootstrap";
 import { savePermissions, saveToken, saveUserInfo } from "./utils/DataStorage";
 import { MyContext } from "./utils/ContextProvider";
 import config from "../config/apiConfig";
-import { Card, Button, Alert } from "../shared/components";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -126,109 +124,120 @@ const Login = () => {
 
   return (
     <div className="container">
-      <Card
-        variant="elevated"
-        style={{ maxWidth: "500px", margin: "50px auto" }}
-      >
-        <Card.Header>
+      <div className="card" style={{ maxWidth: "500px", margin: "50px auto" }}>
+        <div className="card-header">
           <h2 className="card-title">
             <span role="img" aria-label="locked with key">
               🔐
             </span>{" "}
             Login
           </h2>
-        </Card.Header>
+        </div>
 
-        <Card.Body>
-          {message.text && (
-            <Alert
-              variant={message.type === "danger" ? "error" : message.type}
-              dismissible
-              onClose={() => setMessage({ text: "", type: "" })}
-            >
-              {message.text}
-            </Alert>
-          )}
+        {message.text && (
+          <div className={`alert alert-${message.type}`} role="alert">
+            {message.text}
+          </div>
+        )}
 
-          <Form onSubmit={handleLogin}>
-            <Form.Group className="mb-3">
-              <Form.Label>Username</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter your username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+        <form onSubmit={handleLogin}>
+          <div className="form-group">
+            <label className="form-label">Username</label>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Enter your username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              onKeyPress={handleKeyPress}
+              disabled={loading}
+              autoFocus
+              autoComplete="username"
+            />
+          </div>
+
+          <div className="form-group">
+            <label className="form-label">Password</label>
+            <div style={{ position: "relative" }}>
+              <input
+                type={showPassword ? "text" : "password"}
+                className="form-control"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 onKeyPress={handleKeyPress}
                 disabled={loading}
-                autoFocus
-                autoComplete="username"
+                autoComplete="current-password"
               />
-            </Form.Group>
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                style={{
+                  position: "absolute",
+                  right: "10px",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                  border: "none",
+                  background: "transparent",
+                  cursor: "pointer",
+                  fontSize: "18px",
+                }}
+                disabled={loading}
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                {showPassword ? (
+                  <span role="img" aria-label="eye">
+                    👁️
+                  </span>
+                ) : (
+                  <span role="img" aria-label="eye in speech bubble">
+                    👁️‍🗨️
+                  </span>
+                )}
+              </button>
+            </div>
+          </div>
 
-            <Form.Group className="mb-3">
-              <Form.Label>Password</Form.Label>
-              <div style={{ position: "relative" }}>
-                <Form.Control
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Enter your password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  disabled={loading}
-                  autoComplete="current-password"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  style={{
-                    position: "absolute",
-                    right: "10px",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    border: "none",
-                    background: "transparent",
-                    cursor: "pointer",
-                    fontSize: "18px",
-                  }}
-                  disabled={loading}
-                  aria-label={showPassword ? "Hide password" : "Show password"}
-                >
-                  {showPassword ? (
-                    <span role="img" aria-label="eye">
-                      👁️
-                    </span>
-                  ) : (
-                    <span role="img" aria-label="eye in speech bubble">
-                      👁️‍🗨️
-                    </span>
-                  )}
-                </button>
-              </div>
-            </Form.Group>
-
-            <Button
+          <div className="btn-group">
+            <button
               type="submit"
-              variant="primary"
-              fullWidth
-              loading={loading}
+              className="btn btn-primary btn-block"
               disabled={loading || !username.trim() || !password.trim()}
             >
-              Login
-            </Button>
-          </Form>
+              {loading ? (
+                <>
+                  <span
+                    className="spinner"
+                    style={{
+                      width: "16px",
+                      height: "16px",
+                      borderWidth: "2px",
+                      display: "inline-block",
+                      marginRight: "8px",
+                    }}
+                  ></span>
+                  Logging in...
+                </>
+              ) : (
+                "Login"
+              )}
+            </button>
+          </div>
+        </form>
 
-          <Alert
-            variant="info"
-            style={{
-              marginTop: "20px",
-              fontSize: "14px",
-            }}
-          >
-            <strong>Note:</strong> Your session will expire in 24 hours. You'll
-            need to login again.
-          </Alert>
-        </Card.Body>
-      </Card>
+        <div
+          style={{
+            marginTop: "20px",
+            padding: "15px",
+            background: "#f8f9fa",
+            borderRadius: "8px",
+            fontSize: "14px",
+          }}
+        >
+          <strong>Note:</strong> Your session will expire in 24 hours. You'll
+          need to login again.
+        </div>
+      </div>
     </div>
   );
 };

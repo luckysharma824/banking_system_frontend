@@ -4,7 +4,6 @@ import { MyContext } from "./utils/ContextProvider";
 import { Link } from "react-router-dom";
 import { usePermissions } from "./utils/usePermissions";
 import DashboardService from "../services/DashboardService";
-import { Card, Button, LoadingSpinner, Alert } from "../shared/components";
 import "./styles/Dashboard.css";
 
 function Home() {
@@ -223,7 +222,7 @@ function Home() {
       ) : (
         <div className="dashboard-container">
           {/* Welcome Header */}
-          <Card className="dashboard-header">
+          <div className="dashboard-header">
             <div className="welcome-section">
               <h1 className="welcome-greeting">
                 {greeting}, {userInfo?.fullName || userInfo?.username || "User"}
@@ -237,10 +236,10 @@ function Home() {
               <div className="current-time">{formatTime(currentTime)}</div>
               <div className="current-date">{formatDate(currentTime)}</div>
             </div>
-          </Card>
+          </div>
 
           {/* User Info Card */}
-          <Card className="user-info-card" variant="elevated">
+          <div className="user-info-card">
             <div className="user-avatar">
               {(userInfo?.fullName || userInfo?.username || "U")
                 .charAt(0)
@@ -261,32 +260,21 @@ function Home() {
                 </div>
               )}
             </div>
-            <Button variant="primary" size="sm" as={Link} to="/profile">
+            <Link to="/profile" className="profile-link-btn">
               View Profile →
-            </Button>
-          </Card>
-
-          {/* Loading State */}
-          {loading && (
-            <Card>
-              <LoadingSpinner text="Loading dashboard data..." />
-            </Card>
-          )}
+            </Link>
+          </div>
 
           {/* Statistics Cards */}
-          {!loading && getStatisticsCards().length > 0 && (
+          {getStatisticsCards().length > 0 && (
             <div className="statistics-section">
               <h2 className="section-title">Today's Overview</h2>
               <div className="statistics-grid">
                 {getStatisticsCards().map((stat, index) => (
-                  <Card
+                  <div
                     key={index}
                     className="stat-card"
-                    variant="outlined"
-                    style={{
-                      borderLeftColor: stat.color,
-                      borderLeftWidth: "4px",
-                    }}
+                    style={{ borderLeftColor: stat.color }}
                   >
                     <div className="stat-icon" style={{ color: stat.color }}>
                       {stat.icon}
@@ -295,24 +283,22 @@ function Home() {
                       <div className="stat-value">{stat.value}</div>
                       <div className="stat-label">{stat.label}</div>
                     </div>
-                  </Card>
+                  </div>
                 ))}
               </div>
             </div>
           )}
 
           {/* Quick Actions */}
-          {!loading && getQuickActions().length > 0 && (
+          {getQuickActions().length > 0 && (
             <div className="quick-actions-section">
               <h2 className="section-title">Quick Actions</h2>
               <div className="quick-actions-grid">
                 {getQuickActions().map((action, index) => (
-                  <Card
+                  <Link
                     key={index}
-                    as={Link}
                     to={action.link}
                     className="action-card"
-                    variant="interactive"
                     style={{ "--hover-color": action.color }}
                   >
                     <div className="action-icon">{action.icon}</div>
@@ -321,53 +307,46 @@ function Home() {
                       <p className="action-description">{action.description}</p>
                     </div>
                     <div className="action-arrow">→</div>
-                  </Card>
+                  </Link>
                 ))}
               </div>
             </div>
           )}
 
           {/* Recent Activity / Notifications */}
-          {!loading && (
-            <div className="activity-section">
-              <h2 className="section-title">System Status</h2>
-              <Card className="activity-card">
-                <Alert variant="success" style={{ marginBottom: "1rem" }}>
-                  <div className="activity-item">
-                    <div className="activity-content">
-                      <p className="activity-title">System Online</p>
-                      <p className="activity-time">All services operational</p>
-                    </div>
-                  </div>
-                </Alert>
-                <Alert variant="success" style={{ marginBottom: "1rem" }}>
-                  <div className="activity-item">
-                    <div className="activity-content">
-                      <p className="activity-title">Security Active</p>
-                      <p className="activity-time">
-                        All security measures enabled
-                      </p>
-                    </div>
-                  </div>
-                </Alert>
-                <Alert variant="info">
-                  <div className="activity-item">
-                    <div className="activity-content">
-                      <p className="activity-title">Last Login</p>
-                      <p className="activity-time">
-                        {new Date().toLocaleString("en-US", {
-                          month: "short",
-                          day: "numeric",
-                          hour: "2-digit",
-                          minute: "2-digit",
-                        })}
-                      </p>
-                    </div>
-                  </div>
-                </Alert>
-              </Card>
+          <div className="activity-section">
+            <h2 className="section-title">System Status</h2>
+            <div className="activity-card">
+              <div className="activity-item">
+                <div className="activity-indicator success"></div>
+                <div className="activity-content">
+                  <p className="activity-title">System Online</p>
+                  <p className="activity-time">All services operational</p>
+                </div>
+              </div>
+              <div className="activity-item">
+                <div className="activity-indicator success"></div>
+                <div className="activity-content">
+                  <p className="activity-title">Security Active</p>
+                  <p className="activity-time">All security measures enabled</p>
+                </div>
+              </div>
+              <div className="activity-item">
+                <div className="activity-indicator info"></div>
+                <div className="activity-content">
+                  <p className="activity-title">Last Login</p>
+                  <p className="activity-time">
+                    {new Date().toLocaleString("en-US", {
+                      month: "short",
+                      day: "numeric",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </p>
+                </div>
+              </div>
             </div>
-          )}
+          </div>
         </div>
       )}
     </div>

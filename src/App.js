@@ -1,9 +1,15 @@
 import React from "react";
 import "./App.css";
+import CreateCustomer from "./components/CreateCustomer";
+import CreateAccount from "./components/CreateAccount";
+import CheckBalance from "./components/CheckBalance";
+import Deposit from "./components/Deposit";
+import Withdraw from "./components/Withdraw";
+import Transfer from "./components/Transfer";
 import NavigationBar from "./components/NavigationBar";
 import Home from "./components/Home";
-import Login from "./components/Login";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
+import CustomerSearch from "./components/CustomerSearch";
 import { ContextProvider } from "./components/utils/ContextProvider";
 import CreateUser from "./components/CreateUser";
 import UserManagement from "./components/UserManagement";
@@ -30,7 +36,6 @@ function App() {
           <NavigationBar />
           <div className="App">
             <Routes>
-              {/* Public Routes */}
               <Route exact path="/" element={<Home />} />
 
               {/* Module Screens */}
@@ -74,26 +79,13 @@ function App() {
 
               {/* Services Routes */}
               <Route
-                path="/withdraw"
-                element={
-                  <ProtectedRoute
-                    module={MODULES.TRANSACTION}
-                    permission="WITHDRAW"
-                  >
-                    <Withdraw />
-                  </ProtectedRoute>
-                }
+                path="/beneficiaries"
+                element={<BeneficiaryManagement />}
               />
+              <Route path="/loans" element={<LoanManagement />} />
               <Route
-                path="/transfer"
-                element={
-                  <ProtectedRoute
-                    module={MODULES.TRANSACTION}
-                    permission="TRANSFER"
-                  >
-                    <Transfer />
-                  </ProtectedRoute>
-                }
+                path="/standing-instructions"
+                element={<StandingInstructionManagement />}
               />
             </Routes>
           </div>

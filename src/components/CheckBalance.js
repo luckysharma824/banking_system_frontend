@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import axios from "axios";
 import { getToken } from "./utils/DataStorage";
 import config from "../config/apiConfig";
-import { Card, Button, Alert, LoadingSpinner } from "../shared/components";
 import "./styles/CheckBalance.css";
 
 function CheckBalance() {
@@ -79,15 +78,15 @@ function CheckBalance() {
 
   return (
     <div className="container">
-      <Card variant="elevated" className="check-balance-card">
-        <Card.Header>
+      <div className="card check-balance-card">
+        <div className="card-header">
           <h2 className="card-title">
             <span className="card-icon">💰</span>
             Check Account Balance
           </h2>
-        </Card.Header>
+        </div>
 
-        <Card.Body className="check-balance-content">
+        <div className="check-balance-content">
           <div className="form-section">
             <div className="form-group">
               <label className="form-label" htmlFor="accountNumber">
@@ -110,31 +109,51 @@ function CheckBalance() {
             </div>
 
             <div className="btn-group">
-              <Button
-                variant="primary"
+              <button
+                className="btn btn-primary"
                 onClick={handleCheckBalance}
                 disabled={loading || !accountNumber.trim()}
-                loading={loading}
               >
-                🔍 Check Balance
-              </Button>
+                {loading ? (
+                  <>
+                    <span className="spinner"></span>
+                    Checking...
+                  </>
+                ) : (
+                  <>
+                    <span>🔍</span>
+                    Check Balance
+                  </>
+                )}
+              </button>
               {(balance !== null || error) && (
-                <Button
-                  variant="secondary"
+                <button
+                  className="btn btn-secondary"
                   onClick={handleReset}
                   disabled={loading}
                 >
-                  🔄 Reset
-                </Button>
+                  <span>🔄</span>
+                  Reset
+                </button>
               )}
             </div>
           </div>
 
           {/* Success Message */}
-          {successMessage && <Alert variant="success">{successMessage}</Alert>}
+          {successMessage && (
+            <div className="alert alert-success">
+              <span className="alert-icon">✓</span>
+              {successMessage}
+            </div>
+          )}
 
           {/* Error Message */}
-          {error && <Alert variant="error">{error}</Alert>}
+          {error && (
+            <div className="alert alert-danger">
+              <span className="alert-icon">⚠</span>
+              {error}
+            </div>
+          )}
 
           {/* Balance Display */}
           {balance !== null && accountDetails && (
@@ -171,8 +190,8 @@ function CheckBalance() {
               </div>
             </div>
           )}
-        </Card.Body>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 }
