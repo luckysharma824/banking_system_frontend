@@ -1,12 +1,18 @@
 import { useContext } from "react";
 import { MyContext } from "./ContextProvider";
+// Import new core hook for enhanced functionality
+import { usePermissions as useCorePermissions } from "../../core/hooks/usePermissions";
 
 /**
  * Custom hook for permission and role-based access control
+ * Enhanced with core services while maintaining backward compatibility
  * @returns {Object} Permission checking utilities
  */
 export const usePermissions = () => {
   const { permissions, userInfo } = useContext(MyContext);
+
+  // Use core permissions hook for enhanced features
+  const corePermissions = useCorePermissions();
 
   /**
    * Check if user has a specific permission in a module
@@ -164,6 +170,14 @@ export const usePermissions = () => {
     // Raw data (for advanced use)
     permissions,
     userInfo,
+
+    // Enhanced methods from core (available for new features)
+    isManager: corePermissions.isManager,
+    hasHigherPrivilegeThan: corePermissions.hasHigherPrivilegeThan,
+    getHighestPrivilegeRole: corePermissions.getHighestPrivilegeRole,
+    canPerformAction: corePermissions.canPerformAction,
+    canManageUser: corePermissions.canManageUser,
+    getAccessibleModules: corePermissions.getAccessibleModules,
   };
 };
 

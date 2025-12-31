@@ -7,6 +7,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { MyContext } from "./utils/ContextProvider";
 import { usePermissions } from "./utils/usePermissions";
 import { MODULES, getRoleIcon } from "./utils/permissionConstants";
+import { PermissionGuard } from "../core/components/PermissionGuard";
+import { MODULES as CORE_MODULES } from "../core/constants/permissions.constants";
 
 function NavigationBar() {
   const { isAuthenticated, userInfo, logout } = useContext(MyContext);

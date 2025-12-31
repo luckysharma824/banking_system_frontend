@@ -1,26 +1,33 @@
 import React from "react";
 import "./App.css";
-import CreateCustomer from "./components/CreateCustomer";
-import CreateAccount from "./components/CreateAccount";
-import CheckBalance from "./components/CheckBalance";
-import Deposit from "./components/Deposit";
-import Withdraw from "./components/Withdraw";
-import Transfer from "./components/Transfer";
 import NavigationBar from "./components/NavigationBar";
 import Home from "./components/Home";
+import Login from "./components/Login";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
-import CustomerSearch from "./components/CustomerSearch";
 import { ContextProvider } from "./components/utils/ContextProvider";
-import CreateUser from "./components/CreateUser";
-import UserManagement from "./components/UserManagement";
-import AccountSearch from "./components/SearchAccount";
-// Import new components
-import BeneficiaryManagement from "./components/BeneficiaryManagement";
-import LoanManagement from "./components/LoanManagement";
-import StandingInstructionManagement from "./components/StandingInstructionManagement";
-import TransactionHistory from "./components/TransactionHistory";
-import AccountManagement from "./components/AccountManagement";
-import UserProfile from "./components/UserProfile";
+import { ProtectedRoute } from "./core/components/ProtectedRoute";
+import { MODULES } from "./core/constants/permissions.constants";
+
+// Import feature modules
+import { CreateUser, UserManagement, UserProfile } from "./features/user";
+import { CreateCustomer, CustomerSearch } from "./features/customer";
+import {
+  CreateAccount,
+  SearchAccount,
+  CheckBalance,
+  AccountManagement,
+} from "./features/account";
+import {
+  Deposit,
+  Withdraw,
+  Transfer,
+  TransactionHistory,
+} from "./features/transaction";
+import {
+  BeneficiaryManagement,
+  LoanManagement,
+  StandingInstructionManagement,
+} from "./features/services";
 
 function App() {
   return (
@@ -30,36 +37,179 @@ function App() {
           <NavigationBar />
           <div className="App">
             <Routes>
+              {/* Public Routes */}
               <Route exact path="/" element={<Home />} />
-              <Route path="/create-user" element={<CreateUser />} />
-              <Route path="/user-management" element={<UserManagement />} />
-              <Route path="/create-customer" element={<CreateCustomer />} />
-              <Route path="/customer/search" element={<CustomerSearch />} />
-              <Route path="/create-account" element={<CreateAccount />} />
-              <Route path="/account-search" element={<AccountSearch />} />
-              <Route path="/check-balance" element={<CheckBalance />} />
-              <Route path="/deposit" element={<Deposit />} />
-              <Route path="/withdraw" element={<Withdraw />} />
-              <Route path="/transfer" element={<Transfer />} />
-              {/* User Profile */}
-              <Route path="/profile" element={<UserProfile />} />
-              {/* New Enhanced Routes */}
+              <Route path="/login" element={<Login />} />
+
+              {/* User Management Routes */}
+              <Route
+                path="/create-user"
+                element={
+                  <ProtectedRoute
+                    module={MODULES.USER}
+                    permission="CREATE_USER"
+                  >
+                    <CreateUser />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/user-management"
+                element={
+                  <ProtectedRoute module={MODULES.USER} permission="VIEW_USER">
+                    <UserManagement />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute>
+                    <UserProfile />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* Customer Management Routes */}
+              <Route
+                path="/create-customer"
+                element={
+                  <ProtectedRoute
+                    module={MODULES.CUSTOMER}
+                    permission="CREATE_CUSTOMER"
+                  >
+                    <CreateCustomer />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/customer/search"
+                element={
+                  <ProtectedRoute
+                    module={MODULES.CUSTOMER}
+                    permission="VIEW_CUSTOMER"
+                  >
+                    <CustomerSearch />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* Account Management Routes */}
+              <Route
+                path="/create-account"
+                element={
+                  <ProtectedRoute
+                    module={MODULES.ACCOUNT}
+                    permission="CREATE_ACCOUNT"
+                  >
+                    <CreateAccount />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/account-search"
+                element={
+                  <ProtectedRoute
+                    module={MODULES.ACCOUNT}
+                    permission="VIEW_ACCOUNT"
+                  >
+                    <SearchAccount />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/check-balance"
+                element={
+                  <ProtectedRoute
+                    module={MODULES.ACCOUNT}
+                    permission="VIEW_ACCOUNT"
+                  >
+                    <CheckBalance />
+                  </ProtectedRoute>
+                }
+              />
               <Route
                 path="/account-management"
-                element={<AccountManagement />}
+                element={
+                  <ProtectedRoute
+                    module={MODULES.ACCOUNT}
+                    permission="UPDATE_ACCOUNT"
+                  >
+                    <AccountManagement />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* Transaction Routes */}
+              <Route
+                path="/deposit"
+                element={
+                  <ProtectedRoute
+                    module={MODULES.TRANSACTION}
+                    permission="DEPOSIT"
+                  >
+                    <Deposit />
+                  </ProtectedRoute>
+                }
               />
               <Route
-                path="/beneficiaries"
-                element={<BeneficiaryManagement />}
+                path="/withdraw"
+                element={
+                  <ProtectedRoute
+                    module={MODULES.TRANSACTION}
+                    permission="WITHDRAW"
+                  >
+                    <Withdraw />
+                  </ProtectedRoute>
+                }
               />
-              <Route path="/loans" element={<LoanManagement />} />
               <Route
-                path="/standing-instructions"
-                element={<StandingInstructionManagement />}
+                path="/transfer"
+                element={
+                  <ProtectedRoute
+                    module={MODULES.TRANSACTION}
+                    permission="TRANSFER"
+                  >
+                    <Transfer />
+                  </ProtectedRoute>
+                }
               />
               <Route
                 path="/transaction-history"
-                element={<TransactionHistory />}
+                element={
+                  <ProtectedRoute
+                    module={MODULES.TRANSACTION}
+                    permission="VIEW_TRANSACTION"
+                  >
+                    <TransactionHistory />
+                  </ProtectedRoute>
+                }
+              />
+
+              {/* Banking Services Routes */}
+              <Route
+                path="/beneficiaries"
+                element={
+                  <ProtectedRoute>
+                    <BeneficiaryManagement />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/loans"
+                element={
+                  <ProtectedRoute>
+                    <LoanManagement />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/standing-instructions"
+                element={
+                  <ProtectedRoute>
+                    <StandingInstructionManagement />
+                  </ProtectedRoute>
+                }
               />
             </Routes>
           </div>

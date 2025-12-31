@@ -1,0 +1,127 @@
+/* Card Component Styles */
+
+.custom-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  transition: all 0.3s ease;
+  border: 1px solid #e9ecef;
+}
+
+/* Elevation Levels */
+.card-elevation-0 {
+  box-shadow: none;
+}
+
+.card-elevation-1 {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.card-elevation-2 {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.card-elevation-3 {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.card-elevation-4 {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+}
+
+/* Hoverable */
+.card-hoverable:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Clickable */
+.card-clickable {
+  cursor: pointer;
+}
+
+/* Card Variants */
+.card-primary {
+  border-left: 4px solid #007bff;
+}
+
+.card-success {
+  border-left: 4px solid #28a745;
+}
+
+.card-warning {
+  border-left: 4px solid #ffc107;
+}
+
+.card-danger {
+  border-left: 4px solid #dc3545;
+}
+
+.card-info {
+  border-left: 4px solid #17a2b8;
+}
+
+/* Card Header */
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.card-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.card-header-content {
+  flex: 1;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin: 0 0 5px 0;
+}
+
+.card-subtitle {
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin: 0;
+}
+
+.card-actions {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+/* Card Body */
+.card-body {
+  color: #495057;
+}
+
+/* Card Footer */
+.card-footer {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #e9ecef;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .custom-card {
+    padding: 15px;
+  }
+
+  .card-header {
+    flex-direction: column;
+  }
+
+  .card-title {
+    font-size: 1.1rem;
+  }
+}
