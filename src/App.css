@@ -36,6 +36,143 @@ body {
   padding-bottom: 20px;
 }
 
+/* ===== Navigation Bar Dropdown Styles ===== */
+
+/* Make dropdowns appear directly below their nav items */
+.navbar-nav .dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 0.125rem;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  padding: 8px 0;
+  min-width: 220px;
+  background-color: white;
+  animation: dropdownSlide 0.2s ease-out;
+  z-index: 1050;
+}
+
+/* Dropdown animation */
+@keyframes dropdownSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Align right-side user dropdown to the right */
+.navbar-nav .dropdown-menu.dropdown-menu-end {
+  right: 0;
+  left: auto;
+}
+
+/* Dropdown items styling */
+.navbar-nav .dropdown-item {
+  padding: 10px 20px;
+  color: #2c3e50;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 4px;
+  margin: 2px 8px;
+}
+
+.navbar-nav .dropdown-item:hover {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+  color: #667eea;
+  transform: translateX(4px);
+}
+
+.navbar-nav .dropdown-item:active {
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.2) 100%);
+  color: #667eea;
+}
+
+/* Dropdown divider */
+.navbar-nav .dropdown-divider {
+  margin: 8px 0;
+  border-top: 1px solid #e9ecef;
+}
+
+/* Nav dropdown toggle styling */
+.navbar-nav .nav-link.dropdown-toggle {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.navbar-nav .nav-link.dropdown-toggle:hover {
+  color: white !important;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+}
+
+.navbar-nav .nav-link.dropdown-toggle::after {
+  margin-left: 6px;
+  transition: transform 0.2s ease;
+}
+
+/* Rotate arrow when dropdown is shown */
+.navbar-nav .dropdown.show .nav-link.dropdown-toggle::after {
+  transform: rotate(180deg);
+}
+
+/* Ensure dropdown appears on top of other content */
+.navbar {
+  position: relative;
+  z-index: 1040;
+}
+
+/* Smooth transition for dropdown menu */
+.navbar-nav .dropdown-menu.show {
+  display: block;
+}
+
+/* User profile dropdown specific styling */
+#user-nav-dropdown + .dropdown-menu {
+  min-width: 240px;
+}
+
+/* Services dropdown icon styling */
+.navbar-nav .dropdown-item span[role="img"] {
+  font-size: 16px;
+  width: 24px;
+  text-align: center;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 991px) {
+  .navbar-nav .dropdown-menu {
+    position: static;
+    float: none;
+    box-shadow: none;
+    border-left: 3px solid #667eea;
+    margin-left: 15px;
+    margin-top: 5px;
+    animation: none;
+  }
+  
+  .navbar-nav .dropdown-item {
+    margin: 1px 4px;
+  }
+  
+  .navbar-nav .dropdown-item:hover {
+    transform: translateX(8px);
+  }
+}
+
 /* Container Styles */
 .container {
   max-width: 1200px;

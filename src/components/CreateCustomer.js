@@ -35,6 +35,7 @@ function CreateCustomer() {
     identities: [{ identityType: "AADHAAR_CARD", identityNumber: "" }],
   };
   const [customerPayload, setCustomerPayload] = useState(customer);
+  const [sameAsCorrespondence, setSameAsCorrespondence] = useState(false);
 
   useEffect(() => {
     fetchStateData();
@@ -60,6 +61,7 @@ function CreateCustomer() {
 
   const clearPayload = () => {
     setCustomerPayload(customer);
+    setSameAsCorrespondence(false);
   };
 
   const onCustomerChange = (e) => {
@@ -78,10 +80,39 @@ function CreateCustomer() {
       ...updatedAddresses[index],
       [name]: value,
     };
+
+    // If checkbox is checked and we're editing correspondence address (index 0),
+    // also update registered address (index 1)
+    if (sameAsCorrespondence && index === 0) {
+      updatedAddresses[1] = {
+        ...updatedAddresses[1],
+        [name]: value,
+      };
+    }
+
     setCustomerPayload({
       ...customerPayload,
       addresses: updatedAddresses,
     });
+  };
+
+  // Handle "Same as Correspondence Address" checkbox
+  const handleSameAsCorrespondence = (e) => {
+    const isChecked = e.target.checked;
+    setSameAsCorrespondence(isChecked);
+
+    if (isChecked) {
+      // Copy correspondence address (index 0) to registered address (index 1)
+      const updatedAddresses = [...customerPayload.addresses];
+      updatedAddresses[1] = {
+        ...updatedAddresses[0],
+        addressType: "REGISTERED_ADDRESS", // Keep the address type
+      };
+      setCustomerPayload({
+        ...customerPayload,
+        addresses: updatedAddresses,
+      });
+    }
   };
 
   // Handle changes in address fields
@@ -224,88 +255,107 @@ function CreateCustomer() {
         </Row>
         <Form.Label className="fw-bold">Address Details</Form.Label>
         {customerPayload.addresses.map((address, index) => (
-          <div>
+          <div key={index}>
             <Form.Text className="fw-bold" style={{ fontStyle: "italic" }}>
-              Address {index + 1}
+              Address {index + 1} - {address.addressType.replace(/_/g, " ")}
             </Form.Text>
-            <Row>
-              <Col>
-                <Form.Group className="mb-3" controlId="Address Line1">
-                  <Form.Control
-                    type="text"
-                    placeholder="Address Line1"
-                    name="line1"
-                    value={address.line1}
-                    onChange={(e) => handleAddressChange(index, e)}
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <Form.Group className="mb-3" controlId="Address Line2">
-                  <Form.Control
-                    type="text"
-                    placeholder="Address Line2"
-                    name="line2"
-                    value={address.line2}
-                    onChange={(e) => handleAddressChange(index, e)}
-                  />
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group className="mb-3" controlId="Address Line3">
-                  <Form.Control
-                    type="text"
-                    placeholder="Address Line3"
-                    name="line3"
-                    value={address.line3}
-                    onChange={(e) => handleAddressChange(index, e)}
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <Form.Group className="mb-3" controlId="Postal Code">
-                  <Form.Control
-                    type="text"
-                    placeholder="Postal Code"
-                    name="postalCode"
-                    value={address.postalCode}
-                    onChange={(e) => handleAddressChange(index, e)}
-                  />
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group className="mb-3" controlId="State">
-                  <Form.Select
-                    placeholder="State"
-                    name="state"
-                    value={address.state}
-                    onChange={(e) => handleAddressChange(index, e)}
-                  >
-                    <option value={null}>--Select State--</option>
-                    {states.map((e, index) => (
-                      <option key={index} value={e}>
-                        {e}
-                      </option>
-                    ))}
-                  </Form.Select>
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group className="mb-3" controlId="Address Type">
-                  <Form.Control
-                    type="text"
-                    placeholder="Address Type"
-                    name="addressType"
-                    value={address.addressType}
-                    disabled
-                  />
-                </Form.Group>
-              </Col>
-            </Row>
+
+            {/* Show checkbox only for Registered Address (index 1) */}
+            {index === 1 && (
+              <Form.Group className="mb-3" controlId="sameAsCorrespondence">
+                <Form.Check
+                  type="checkbox"
+                  label="Same as Correspondence Address"
+                  checked={sameAsCorrespondence}
+                  onChange={handleSameAsCorrespondence}
+                  style={{ marginTop: "10px", marginBottom: "10px" }}
+                />
+              </Form.Group>
+            )}
+
+            {/* Hide registered address fields when checkbox is checked */}
+            {!(index === 1 && sameAsCorrespondence) && (
+              <>
+                <Row>
+                  <Col>
+                    <Form.Group className="mb-3" controlId="Address Line1">
+                      <Form.Control
+                        type="text"
+                        placeholder="Address Line1"
+                        name="line1"
+                        value={address.line1}
+                        onChange={(e) => handleAddressChange(index, e)}
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <Form.Group className="mb-3" controlId="Address Line2">
+                      <Form.Control
+                        type="text"
+                        placeholder="Address Line2"
+                        name="line2"
+                        value={address.line2}
+                        onChange={(e) => handleAddressChange(index, e)}
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col>
+                    <Form.Group className="mb-3" controlId="Address Line3">
+                      <Form.Control
+                        type="text"
+                        placeholder="Address Line3"
+                        name="line3"
+                        value={address.line3}
+                        onChange={(e) => handleAddressChange(index, e)}
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <Form.Group className="mb-3" controlId="Postal Code">
+                      <Form.Control
+                        type="text"
+                        placeholder="Postal Code"
+                        name="postalCode"
+                        value={address.postalCode}
+                        onChange={(e) => handleAddressChange(index, e)}
+                      />
+                    </Form.Group>
+                  </Col>
+                  <Col>
+                    <Form.Group className="mb-3" controlId="State">
+                      <Form.Select
+                        placeholder="State"
+                        name="state"
+                        value={address.state}
+                        onChange={(e) => handleAddressChange(index, e)}
+                      >
+                        <option value={null}>--Select State--</option>
+                        {states.map((e, index) => (
+                          <option key={index} value={e}>
+                            {e}
+                          </option>
+                        ))}
+                      </Form.Select>
+                    </Form.Group>
+                  </Col>
+                  <Col>
+                    <Form.Group className="mb-3" controlId="Address Type">
+                      <Form.Control
+                        type="text"
+                        placeholder="Address Type"
+                        name="addressType"
+                        value={address.addressType}
+                        disabled
+                      />
+                    </Form.Group>
+                  </Col>
+                </Row>
+              </>
+            )}
           </div>
         ))}
         <div>
