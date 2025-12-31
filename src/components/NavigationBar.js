@@ -44,104 +44,28 @@ function NavigationBar() {
             {isAuthenticated ? (
               <>
                 {hasModuleAccess(MODULES.USER) && (
-                  <NavDropdown title="User" id="user-nav-dropdown">
-                    {hasPermission(MODULES.USER, "CREATE_USER") && (
-                      <NavDropdown.Item as={Link} to="/create-user">
-                        Create User
-                      </NavDropdown.Item>
-                    )}
-                    {hasPermission(MODULES.USER, "VIEW_USER") && (
-                      <NavDropdown.Item as={Link} to="/user-management">
-                        User Management
-                      </NavDropdown.Item>
-                    )}
-                  </NavDropdown>
+                  <Nav.Link as={Link} to="/user-module">
+                    User
+                  </Nav.Link>
                 )}
                 {hasModuleAccess(MODULES.CUSTOMER) && (
-                  <NavDropdown title="Customer" id="customer-nav-dropdown">
-                    {hasPermission(MODULES.CUSTOMER, "CREATE_CUSTOMER") && (
-                      <NavDropdown.Item as={Link} to="/create-customer">
-                        Create Customer
-                      </NavDropdown.Item>
-                    )}
-                    {hasPermission(MODULES.CUSTOMER, "VIEW_CUSTOMER") && (
-                      <NavDropdown.Item as={Link} to="/customer/search">
-                        Search Customer
-                      </NavDropdown.Item>
-                    )}
-                  </NavDropdown>
+                  <Nav.Link as={Link} to="/customer-module">
+                    Customer
+                  </Nav.Link>
                 )}
                 {hasModuleAccess(MODULES.ACCOUNT) && (
-                  <NavDropdown title="Account" id="account-nav-dropdown">
-                    {hasPermission(MODULES.ACCOUNT, "CREATE_ACCOUNT") && (
-                      <NavDropdown.Item as={Link} to="/create-account">
-                        Create Account
-                      </NavDropdown.Item>
-                    )}
-                    {hasPermission(MODULES.ACCOUNT, "VIEW_ACCOUNT") && (
-                      <NavDropdown.Item as={Link} to="/account-search">
-                        Search Account
-                      </NavDropdown.Item>
-                    )}
-                    {hasPermission(MODULES.ACCOUNT, "VIEW_ACCOUNT") && (
-                      <NavDropdown.Item as={Link} to="/check-balance">
-                        Check Balance
-                      </NavDropdown.Item>
-                    )}
-                    <NavDropdown.Divider />
-                    <NavDropdown.Item as={Link} to="/account-management">
-                      Manage Accounts
-                    </NavDropdown.Item>
-                  </NavDropdown>
+                  <Nav.Link as={Link} to="/account-module">
+                    Account
+                  </Nav.Link>
                 )}
                 {hasModuleAccess(MODULES.TRANSACTION) && (
-                  <NavDropdown
-                    title="Transaction"
-                    id="transaction-nav-dropdown"
-                  >
-                    {hasPermission(MODULES.TRANSACTION, "DEPOSIT") && (
-                      <NavDropdown.Item as={Link} to="/deposit">
-                        Deposit Money
-                      </NavDropdown.Item>
-                    )}
-                    {hasPermission(MODULES.TRANSACTION, "WITHDRAW") && (
-                      <NavDropdown.Item as={Link} to="/withdraw">
-                        Withdraw Money
-                      </NavDropdown.Item>
-                    )}
-                    {hasPermission(MODULES.TRANSACTION, "TRANSFER") && (
-                      <NavDropdown.Item as={Link} to="/transfer">
-                        Transfer Money
-                      </NavDropdown.Item>
-                    )}
-                    <NavDropdown.Divider />
-                    {hasPermission(MODULES.TRANSACTION, "VIEW_TRANSACTION") && (
-                      <NavDropdown.Item as={Link} to="/transaction-history">
-                        Transaction History
-                      </NavDropdown.Item>
-                    )}
-                  </NavDropdown>
+                  <Nav.Link as={Link} to="/transaction-module">
+                    Transaction
+                  </Nav.Link>
                 )}
-                <NavDropdown title="Services" id="services-nav-dropdown">
-                  <NavDropdown.Item as={Link} to="/beneficiaries">
-                    <span role="img" aria-label="people">
-                      👥
-                    </span>{" "}
-                    Beneficiaries
-                  </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/loans">
-                    <span role="img" aria-label="money bag">
-                      💰
-                    </span>{" "}
-                    Loans
-                  </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/standing-instructions">
-                    <span role="img" aria-label="refresh">
-                      🔄
-                    </span>{" "}
-                    Standing Instructions
-                  </NavDropdown.Item>
-                </NavDropdown>
+                <Nav.Link as={Link} to="/services-module">
+                  Services
+                </Nav.Link>
               </>
             ) : null}
           </Nav>
