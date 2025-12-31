@@ -21,6 +21,12 @@ import StandingInstructionManagement from "./components/StandingInstructionManag
 import TransactionHistory from "./components/TransactionHistory";
 import AccountManagement from "./components/AccountManagement";
 import UserProfile from "./components/UserProfile";
+// Import module screens
+import UserModule from "./components/UserModule";
+import CustomerModule from "./components/CustomerModule";
+import AccountModule from "./components/AccountModule";
+import TransactionModule from "./components/TransactionModule";
+import ServicesModule from "./components/ServicesModule";
 
 function App() {
   return (
@@ -31,23 +37,47 @@ function App() {
           <div className="App">
             <Routes>
               <Route exact path="/" element={<Home />} />
+
+              {/* Module Screens */}
+              <Route path="/user-module" element={<UserModule />} />
+              <Route path="/customer-module" element={<CustomerModule />} />
+              <Route path="/account-module" element={<AccountModule />} />
+              <Route
+                path="/transaction-module"
+                element={<TransactionModule />}
+              />
+              <Route path="/services-module" element={<ServicesModule />} />
+
+              {/* User Routes */}
               <Route path="/create-user" element={<CreateUser />} />
               <Route path="/user-management" element={<UserManagement />} />
+
+              {/* Customer Routes */}
               <Route path="/create-customer" element={<CreateCustomer />} />
               <Route path="/customer/search" element={<CustomerSearch />} />
+
+              {/* Account Routes */}
               <Route path="/create-account" element={<CreateAccount />} />
               <Route path="/account-search" element={<AccountSearch />} />
               <Route path="/check-balance" element={<CheckBalance />} />
-              <Route path="/deposit" element={<Deposit />} />
-              <Route path="/withdraw" element={<Withdraw />} />
-              <Route path="/transfer" element={<Transfer />} />
-              {/* User Profile */}
-              <Route path="/profile" element={<UserProfile />} />
-              {/* New Enhanced Routes */}
               <Route
                 path="/account-management"
                 element={<AccountManagement />}
               />
+
+              {/* Transaction Routes */}
+              <Route path="/deposit" element={<Deposit />} />
+              <Route path="/withdraw" element={<Withdraw />} />
+              <Route path="/transfer" element={<Transfer />} />
+              <Route
+                path="/transaction-history"
+                element={<TransactionHistory />}
+              />
+
+              {/* User Profile */}
+              <Route path="/profile" element={<UserProfile />} />
+
+              {/* Services Routes */}
               <Route
                 path="/beneficiaries"
                 element={<BeneficiaryManagement />}
@@ -56,10 +86,6 @@ function App() {
               <Route
                 path="/standing-instructions"
                 element={<StandingInstructionManagement />}
-              />
-              <Route
-                path="/transaction-history"
-                element={<TransactionHistory />}
               />
             </Routes>
           </div>
